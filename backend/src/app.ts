@@ -1,22 +1,32 @@
-import express, { Request, Response } from 'express';
+import express from 'express'
+import cors from 'cors'
+import { SimpleUser } from './domain/user';
+import { errorHandler } from './routes/route-factory';
+import { createUserRoutes } from './routes/user-routes';
 import dotenv from 'dotenv';
-import connectDB from './util/database';
+import { UserService } from './service/user-service';
 
 dotenv.config();
 
-const app = express();
-const port = process.env.PORT || 5000;
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: SimpleUser;
+  }
+}
 
-// Middleware
+const app = express()
+app.use(cors())
 app.use(express.json());
 
-// Verbinding maken met MongoDB
-connectDB();
+// Init services
+const userService = new UserService();
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to BudgetEase API');
-});
+// Create routes
+createUserRoutes(app, userService);
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// Errorhandler needs to be registered last
+app.use(errorHandler);
+
+app.listen(3000, function () {
+  console.log("Server listening on port 3000.");
+})
