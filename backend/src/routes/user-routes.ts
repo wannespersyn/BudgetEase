@@ -24,14 +24,14 @@ export const createUserRoutes = (expressApp: Express, userService: UserService) 
   expressApp.post('/register', unauthenticatedRoute, (req: Request, res: Response, next: NextFunction) => {
     wrapRoute(async () => {
       const {
-        email, password
+        username, email, password, role
       } = req.body;
 
       if (!email || !password) {
         throw CustomError.invalid("Please provide an email and password to register.");
       }
 
-      await userService.addUser(email, password);
+      await userService.addUser(username, email, password, role);
       res.status(201).json({ email });
     }, next);
   })

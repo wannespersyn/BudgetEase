@@ -11,8 +11,7 @@ export const createGoalRoutes = (expressApp: Express, goalService: GoalService, 
 
     expressApp.get('/goals/:id', authenticatedRoute, (req: Request, res: Response, next: NextFunction) => {
         wrapRoute(async () => {
-            const user = req.user;
-            const goal = await goalService.getGoalById(req.params.id, user);
+            const goal = await goalService.getGoalById(req.params.id);
             res.json(goal);
         }, next);
     });
@@ -30,7 +29,7 @@ export const createGoalRoutes = (expressApp: Express, goalService: GoalService, 
                     user,
                     []
                 );
-            await goalService.createGoal(goal, user.email);
+            await goalService.createGoal(goal);
             res.status(201).json(goal);
         }, next);
     });

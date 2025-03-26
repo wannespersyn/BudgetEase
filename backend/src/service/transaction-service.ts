@@ -1,13 +1,19 @@
 import { CustomError } from "../domain/custom-error";
 import { SimpleUser } from "../domain/user";
-import { MongoTransactionRepository } from "../repository/mongo-transaction-repository";
+import { CosmosTransactionRepository } from "../repository/cosmo-transaction-repository";
+
 
 export class TransactionService {
 
     private async getRepo() {
-        return MongoTransactionRepository.getInstance();
+        return CosmosTransactionRepository.getInstance();
     }
 
+    /**
+     * 
+     * CRUD operations 
+     * 
+     */
     async getAllTransactions(user: SimpleUser) {
         return (await this.getRepo()).getAllTransactions(user.email);
     }
@@ -28,6 +34,7 @@ export class TransactionService {
         await (await this.getRepo()).createTransaction(transaction, userEmail);
     }
 
+    
     async deleteTransactionById(id: string, user: SimpleUser) {
         if (!id || id.length === 0) {
             throw CustomError.invalid("Transaction id can not be empty.");

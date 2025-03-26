@@ -9,14 +9,6 @@ export const createBudgetRoutes = (expressApp: Express, budgetService: BudgetSer
         throw new Error("Not all services are initialised. Exiting...");
     }
 
-    expressApp.get('/budgets', authenticatedRoute, (req: Request, res: Response, next: NextFunction) => {
-        wrapRoute(async () => {
-            const user = req.user;
-            const budgets = await budgetService.getAllBudgets(user);
-            res.json(budgets);
-        }, next);
-    });
-
     expressApp.get('/budgets/:id', authenticatedRoute, (req: Request, res: Response, next: NextFunction) => {
         wrapRoute(async () => {
             const user = req.user;

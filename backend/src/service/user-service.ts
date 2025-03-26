@@ -1,7 +1,7 @@
 import { CustomError } from "../domain/custom-error";
 import { hash } from "../domain/hash";
 import { User } from "../domain/user";
-import { MongoUserRepository } from "../repository/mongo-user-repository";
+import { CosmosUserRepository } from "../repository/cosmo-user-repository";
 
 export class UserService {
 
@@ -15,10 +15,10 @@ export class UserService {
   }
 
   private async getRepo() {
-    return MongoUserRepository.getInstance();
+    return CosmosUserRepository.getInstance();
   }
 
-  async addUser(email: string, password: string) {
+  async addUser( username: string, email: string, password: string, role: ROLES) {
     if (!email || email.length < 3) {
       throw CustomError.invalid('Email is invalid.');
     }
@@ -31,7 +31,14 @@ export class UserService {
       throw CustomError.conflict('A user with this email address already exists.');
     }
 
-    const user = new User(email, await hash(password));
+    const user = new User(
+      username,
+      email, 
+      await hash(password),
+      role,
+      new Date(),
+      new Date()
+    )
     return (await this.getRepo()).createUser(user);
   }
 
