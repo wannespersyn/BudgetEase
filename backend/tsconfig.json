@@ -1,24 +1,12 @@
-/**
-    * This file is used to configure the TypeScript compiler. It is used to specify the root files and the compiler options required to compile the TypeScript files.
-    * The root files are the files that are compiled by the TypeScript compiler. The compiler options are used to specify the output directory, the module system, the target version of JavaScript, and the source map.
-    * The lib option is used to specify the library files that are included in the compilation. The es2015 library is included in the compilation.
-
-    * module: Specifies the module code generation method. Node uses commonjs.
-    * target: Specifies the output language level.
-    * moduleResolution: This helps the compiler figure out what an import refers to. The value node mimics the Node module resolution mechanism.
-    * outDir: This is the location to output .js files after transpilation. In this tutorial, you will save it as dist.
-
-    * https://www.typescriptlang.org/docs/handbook/compiler-options.html
-*/
-
 {
-    "compilerOptions": {
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "outDir": "dist"
-    },
-    "lib": ["es2015"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": "dist",
+    "rootDir": ".",
+    "sourceMap": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+  }
 }
