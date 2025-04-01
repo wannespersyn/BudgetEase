@@ -15,7 +15,14 @@ declare module "express-serve-static-core" {
 }
 
 const app = express()
-app.use(cors())
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // Allow local development
+      "https://portal.azure.com.",// Allow Azure
+    ],
+  })
+);
 app.use(express.json());
 
 // Init services
