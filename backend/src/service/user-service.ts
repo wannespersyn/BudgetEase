@@ -49,4 +49,23 @@ export class UserService {
 
     return (await this.getRepo()).getUser(email);
   }
+
+  async loginUser(email: string, password: string) {
+    if (!email) {
+      throw CustomError.invalid('Email is invalid.');
+    }
+
+
+    const user = await (await this.getRepo()).getUser(email);
+
+    if (!user) {
+      throw CustomError.unauthorized('Invalid email or password.');
+    }
+
+    if (user.password !== await hash(password)) {
+      throw CustomError.unauthorized('Invalid email or password.');
+    }
+
+    return user;
+  }
 }

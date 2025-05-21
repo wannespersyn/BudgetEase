@@ -1,27 +1,26 @@
 import React from 'react'
 import Link from 'next/link'
-import { UserIcon } from '@heroicons/react/24/solid'
 
-type ActiveType = 'Transaction' | 'Dashboard'
+type ActiveType = 'Transaction' | 'Dashboard' | 'Input' | 'Budget' | 'Reports' | 'Home';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
 
     const tabs = [
+        { name: 'Home', path: '/' },
+        { name: 'Input', path: '/input' },
+        { name: 'Budget', path: '/budget' },
+        { name: 'Reports', path: '/reports' },
         { name: 'Transaction', path: '/input' },
         { name: 'Dashboard', path: '/dashboard' },
+        { name: "Login", path: "/login" },
     ];
 
     return (
         <nav>
             {/* DESKTOP MENU */}
             <div className="w-full z-10">
-                <div className={`flexBetween mx-auto w-full sticky bg-black`}>
+                <div className={`flexBetween mx-auto w-full sticky bg-gray-900 text-white`}>
                     <div className="flexBetween w-full gap-16 p-3 mx-12 lg:mx-24">
-                        {/* Logo */}
-                        <Link href="/">
-                            <img alt="logo" src="/logo.webp" className="max-h-20 mx-auto" />
-                        </Link>
-
                         <DesktopMenu tabs={tabs} active={active} />
                     </div>
                 </div>
@@ -48,13 +47,6 @@ const DesktopMenu = ({ tabs, active }: { tabs: { name: string, path: string }[],
                     </TabDesktop>
                 ))}
             </ul>
-
-            {/* User & Cart Icons */}
-            <div className="flex gap-8 ml-8">
-                <Link href="https://www.wildwines.be/webshop#!/~/account" target="_blank">
-                    <UserIcon className="h-6 w-6 text-white" />
-                </Link>
-            </div>
         </div>
     );
 };

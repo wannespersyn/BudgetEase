@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import AuthenticationService from "../../../../services/AuthenticationService"
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -12,7 +13,8 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    //TODO: Implement API call to register
+    //TODO: Call theazure function to register the user 
+    
 
     console.log("Registering with:", name, email, password);
     router.push("/login");

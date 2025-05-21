@@ -5,6 +5,15 @@ import { CosmosTransactionRepository } from "../repository/cosmo-transaction-rep
 
 export class TransactionService {
 
+    private static instance: TransactionService;
+
+    static getInstance() {
+        if (!this.instance) {
+          this.instance = new TransactionService();
+        }
+        return this.instance;
+      }
+    
     private async getRepo() {
         return CosmosTransactionRepository.getInstance();
     }

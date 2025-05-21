@@ -2,6 +2,7 @@ import { CustomError } from "./custom-error";
 import { compare } from "./hash";
 
 export class User {
+  password: string;
   constructor(
         readonly username: string,
         readonly email: string, 

@@ -13,7 +13,7 @@ const Login = (email: string, password: string) => {
 }        
 
 const Register = (email: string, password: string) => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, {
+    return fetch(`${process.env.API_BASE_URL}/auth/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
