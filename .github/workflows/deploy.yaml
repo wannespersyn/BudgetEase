@@ -26,9 +26,6 @@ jobs:
           cd backend
           npm ci
           npm run build
-          cp host.json dist/
-          cp package.json dist/
-          cp -r node_modules dist/ # Nodig voor runtime
 
       # Stap 4: Deploy naar Azure Functions
       - name: 'Deploy to Azure Function App'
