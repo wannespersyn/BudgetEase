@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "storage_account: $storage_account"
+echo "container_name: $container_name"
+echo "sas_token: $sas_token"
+echo "local_folder: $local_folder"
+
 # Set your Azure Storage account name, container name, and SAS token
 storage_account="$AZURE_STORAGE_ACCOUNT"
 container_name="$AZURE_STORAGE_CONTAINER"
