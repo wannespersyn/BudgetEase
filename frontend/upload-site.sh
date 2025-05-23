@@ -5,13 +5,14 @@ storage_account="$AZURE_STORAGE_ACCOUNT"
 container_name="$AZURE_STORAGE_CONTAINER"
 sas_token="$AZURE_STORAGE_SAS_TOKEN"
 
+# Set the local folder path
+local_folder="out"
+
+
 echo "storage_account: $storage_account"
 echo "container_name: $container_name"
 echo "sas_token: $sas_token"
 echo "local_folder: $local_folder"
-
-# Set the local folder path
-local_folder="out"
 
 # Iterate over each file in the local folder and its subfolders
 find "$local_folder" -type f | while read -r file_path; do
