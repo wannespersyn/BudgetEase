@@ -54,7 +54,6 @@ jobs:
         id: deploy-to-webapp
         with:
           app-name: 'BudgetEase'
-          slot-name: 'production' # eventueel weglaten
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
           package: .
         
