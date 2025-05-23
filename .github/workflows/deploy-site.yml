@@ -35,12 +35,10 @@ jobs:
 
     - name: Build frontend
       run: |
-        cd frontend
         npm run build
 
     - name: Run Upload Script
       run: |
-        cd frontend
         chmod +x ./upload-site.sh
         ./upload-site.sh
       env:
