@@ -1,71 +1,35 @@
-name: Build and Deploy Next.js App
+name: Deploy Frontend
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
+# CONFIGURATION
+# For help, go to https://github.com/Azure/Actions
+#
+# 1. Set up the following secrets in your repository:
+#   AZURE_FUNCTIONAPP_PUBLISH_PROFILE
+#
+# 2. Change these variables for your configuration:
+env:
+  NODE_VERSION: '20.x'                      # set this to the node version to use (e.g. '8.x', '10.x', '12.x')
 
 jobs:
-  build:
+  upload-site:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install dependencies & build Next.js app
-        run: |
-          cd frontend
-          npm ci
-          npm run build
-        
-      - name: Prepare artifact (only build output)
-        run: |
-          mkdir deploy
-          cp -r frontend/.next frontend/package.json frontend/next.config.ts deploy/
-        
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: nextjs-app
-          path: deploy/
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-        
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: nextjs-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C24B6AC3D1E941E2AAAFE1CF7DF9CC8C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EBF99EFB55634075BF33A5F62EA52029 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_BA6658291B3B426584B868860F40CD48 }}
-  
-        
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'BudgetEase'
-          slot-name: 'production' # eventueel weglaten
-          package: .
-        
+    - name: Run Upload Script
+      run: |
+        cd ./frontend
+        npm run build
+        chmod +x ./upload-site.sh
+        ./upload-site.sh
+      env:
+        AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+        AZURE_STORAGE_CONTAINER: ${{ secrets.AZURE_STORAGE_CONTAINER }}
+        AZURE_STORAGE_SAS_TOKEN: ${{ secrets.AZURE_STORAGE_SAS_TOKEN }}
