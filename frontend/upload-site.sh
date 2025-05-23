@@ -23,6 +23,11 @@ find "$local_folder" -type f | while read -r file_path; do
         # Construct the Blob Storage URL for the file
         blob_url="https://$storage_account.blob.core.windows.net/$container_name/$relative_path?$sas_token"
 
+        echo "file_path: $file_path"
+        echo "relative_path: $relative_path"
+        echo "blob_url: $blob_url"
+
+
         # Set Content-Type based on file extension
         extension="${file_path##*.}"
         content_type=""
