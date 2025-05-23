@@ -8,12 +8,6 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 # Set the local folder path
 local_folder="out"
 
-
-echo "storage_account: $storage_account"
-echo "container_name: $container_name"
-echo "sas_token: $sas_token"
-echo "local_folder: $local_folder"
-
 # Iterate over each file in the local folder and its subfolders
 find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
@@ -23,12 +17,6 @@ find "$local_folder" -type f | while read -r file_path; do
         # Construct the Blob Storage URL for the file
         blob_url="https://$storage_account.blob.core.windows.net/$container_name/$relative_path?$sas_token"
         blob_url=$(echo "$blob_url" | tr -d ' ')
-
-
-        echo "file_path: $file_path"
-        echo "relative_path: $relative_path"
-        echo "blob_url: $blob_url"
-
 
         # Set Content-Type based on file extension
         extension="${file_path##*.}"
