@@ -1,4 +1,4 @@
-name: Build and deploy Site
+name: Build and Deploy Next.js App
 
 on:
   push:
@@ -9,36 +9,33 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-          cache: 'npm'
+          node-version: '20'
 
-      - name: Install and build frontend
-        working-directory: frontend
+      - name: Install dependencies & build Next.js app
         run: |
-          cd ./frontend
+          cd frontend
           npm ci
           npm run build
 
-      - name: Zip build output
-        working-directory: frontend
+      - name: Prepare artifact (only build output)
         run: |
-          cd dist || cd build
-          zip -r ../../release.zip . 
+          cd frontend
+          mkdir ../deploy
+          cp -r .next public package.json next.config.js ../deploy
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: node-app
-          path: release.zip
+          name: nextjs-app
+          path: deploy/
 
   deploy:
     runs-on: ubuntu-latest
@@ -46,30 +43,24 @@ jobs:
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: nextjs-app
 
-      - name: Unzip artifact
-        run: unzip release.zip -d deploy
-
-      - name: Azure Login
+      - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_019B8FB843DD46A8835A564E76A51097 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_92B8FFAD8AA34E50923E67908C88C079 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_085F3C8332B44E57ABEA0F8B7EC48968 }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
+        id: deploy-to-webapp
         with:
           app-name: 'BudgetEase'
-          slot-name: 'Production'
-          package: ./deploy
+          slot-name: 'production' # remove if not using slots
+          package: .
