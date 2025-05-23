@@ -24,12 +24,12 @@ jobs:
           cd frontend
           npm ci
           npm run build
-
+        
       - name: Prepare artifact (only build output)
         run: |
-          cd frontend
-          mkdir ../deploy
-          cp -r .next public package.json next.config.js ../deploy
+          mkdir deploy
+          cp -r frontend/.next frontend/public frontend/package.json frontend/next.config.js deploy/
+        
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
