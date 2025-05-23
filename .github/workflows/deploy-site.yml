@@ -28,7 +28,7 @@ jobs:
       - name: Prepare artifact (only build output)
         run: |
           mkdir deploy
-          cp -r frontend/.next frontend/public frontend/package.json frontend/next.config.js deploy/
+          cp -r frontend/.next frontend/package.json frontend/next.config.ts deploy/
         
 
       - name: Upload artifact
