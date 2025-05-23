@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
   trailingSlash: true,
+  assetPrefix: "./", 
 };
 
 export default nextConfig;
