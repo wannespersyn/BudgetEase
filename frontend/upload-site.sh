@@ -8,6 +8,13 @@ sas_token="$AZURE_STORAGE_SAS_TOKEN"
 # Set the local folder path
 local_folder="out"
 
+echo "🧹 Verwijdert bestaande bestanden uit \$web container..."
+az storage blob delete-batch \
+  --account-name "$AZURE_STORAGE_ACCOUNT" \
+  --source '$web' \
+  --sas-token "$AZURE_STORAGE_SAS_TOKEN"
+
+
 # Iterate over each file in the local folder and its subfolders
 find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
