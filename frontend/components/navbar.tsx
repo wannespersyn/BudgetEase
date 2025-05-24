@@ -11,8 +11,8 @@ const Navbar = ({ active }: { active: ActiveType }) => {
         { name: 'Budget', path: '/budget.html' },
         { name: 'Reports', path: '/reports.html' },
         { name: 'Transaction', path: '/input.html' },
-        { name: 'Dashboard', path: '/dashboard' },
-        { name: "Login", path: "/$web/login" },
+        { name: 'Dashboard', path: '/dashboard.html' },
+        { name: "Login", path: "/login.html" },
     ];
 
     return (
