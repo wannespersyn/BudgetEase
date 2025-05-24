@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../../../../components/navbar';
-import '../../../../styles/budget.css';
+import Navbar from '../../../components/navbar';
+import styles from './styles.module.css';
 
 export default function BudgetForm() {
   const [formData, setFormData] = useState({
@@ -50,8 +50,8 @@ export default function BudgetForm() {
   return (
     <>
       <Navbar active="Budget" />
-      <form onSubmit={handleSubmit} className="budget-form">
-        <h2>Set Budget</h2>
+      <form onSubmit={handleSubmit} className={styles.budgetForm}>
+        <h2 className={styles.title}>Set Budget</h2>
 
         <input
           type="text"
@@ -60,6 +60,7 @@ export default function BudgetForm() {
           value={formData.category}
           onChange={handleChange}
           required
+          className={styles.input}
         />
 
         <input
@@ -69,6 +70,7 @@ export default function BudgetForm() {
           value={formData.limit}
           onChange={handleChange}
           required
+          className={styles.input}
         />
 
         <input
@@ -77,6 +79,7 @@ export default function BudgetForm() {
           value={formData.startDate}
           onChange={handleChange}
           required
+          className={styles.input}
         />
 
         <input
@@ -85,24 +88,27 @@ export default function BudgetForm() {
           value={formData.endDate}
           onChange={handleChange}
           required
+          className={styles.input}
         />
 
         <select
           name="currency"
           value={formData.currency}
           onChange={handleChange}
+          className={styles.select}
         >
           <option value="EUR">EUR</option>
           <option value="USD">USD</option>
           <option value="GBP">GBP</option>
         </select>
 
-        <label>
+        <label className={styles.checkboxLabel}>
           <input
             type="checkbox"
             name="isRecurring"
             checked={formData.isRecurring}
             onChange={handleChange}
+            className={styles.checkbox}
           />
           Recurring Budget
         </label>
@@ -112,6 +118,7 @@ export default function BudgetForm() {
             name="recurrenceInterval"
             value={formData.recurrenceInterval}
             onChange={handleChange}
+            className={styles.select}
           >
             <option value="weekly">Weekly</option>
             <option value="monthly">Monthly</option>
@@ -124,9 +131,10 @@ export default function BudgetForm() {
           placeholder="Additional notes (optional)"
           value={formData.notes}
           onChange={handleChange}
+          className={styles.textarea}
         />
 
-        <button type="submit">Save Budget</button>
+        <button type="submit" className={styles.button}>Save Budget</button>
       </form>
     </>
   );

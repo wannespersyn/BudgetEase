@@ -4,8 +4,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   output: "export",
   trailingSlash: true,
-  assetPrefix: "./", 
-  basePath: '',
+  basePath: '/$web',
 };
 
 export default nextConfig;

@@ -1,4 +1,19 @@
 /* TransactionForm.module.css */
+.body {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+    font-family: 'Inter', sans-serif;
+    color: #111827; /* Tailwind gray-900 */
+    padding: 2rem;
+  }
+  
+  .formTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1d4ed8; /* Tailwind blue-700 */
+    margin-bottom: 1rem;
+  }
+
 .formContainer {
     max-width: 42rem;
     margin: 0 auto;

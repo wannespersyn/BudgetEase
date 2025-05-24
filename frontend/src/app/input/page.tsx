@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../../../../components/navbar';
-import '../../../../styles/input.css';
+import Navbar from '../../../components/navbar';
+import './styles.module.css';
 
 export default function TransactionForm() {
   const [formData, setFormData] = useState({
@@ -73,7 +73,7 @@ export default function TransactionForm() {
   );
 
   return (
-    <>
+    <main className={'main'}>
       <Navbar active="Input" />
       <form onSubmit={handleSubmit} className={'formContainer'}>
         <h2 className={'heading'}>Add Transaction</h2>
@@ -139,6 +139,6 @@ export default function TransactionForm() {
           Add Transaction
         </button>
       </form>
-    </>
+    </main>
   );
 }
