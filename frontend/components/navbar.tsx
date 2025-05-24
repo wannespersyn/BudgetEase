@@ -6,13 +6,13 @@ type ActiveType = 'Transaction' | 'Dashboard' | 'Input' | 'Budget' | 'Reports' |
 
 const Navbar = ({ active }: { active: ActiveType }) => {
     const tabs = [
-        { name: 'Home', path: '/' },
+        { name: 'Home', path: '/index.html' },
         { name: 'Input', path: '/input.html' },
         { name: 'Budget', path: '/budget.html' },
         { name: 'Reports', path: '/reports.html' },
         { name: 'Transaction', path: '/input.html' },
         { name: 'Dashboard', path: '/dashboard' },
-        { name: "Login", path: "/login" },
+        { name: "Login", path: "/$web/login" },
     ];
 
     return (
