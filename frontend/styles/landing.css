@@ -1,0 +1,27 @@
+/* styles/landing.css */
+
+.main {
+    min-height: 100vh;
+    background-color: #fff7ed; /* bg-orange-50 */
+    color: #000; /* text-black */
+  }
+  
+  .section {
+    max-width: 64rem; /* max-w-5xl ≈ 1024px */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4rem 1rem; /* py-16 px-4 */
+  }
+  
+  .heading {
+    font-size: 3rem; /* text-5xl ≈ 48px */
+    font-weight: bold;
+    color: #2563eb; /* text-blue-600 */
+    margin-bottom: 1rem;
+  }
+  
+  .paragraph-large {
+    font-size: 1.25rem; /* text-xl */
+    margin-bottom: 1.5rem;
+  }
+  
