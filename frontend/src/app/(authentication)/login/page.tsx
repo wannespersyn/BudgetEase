@@ -1,5 +1,6 @@
 'use client';
 
+import "../../styles/login.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -18,11 +19,23 @@ export default function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-xl font-semibold text-center">Login</h2>
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-2 my-2 border rounded"/>
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-2 my-2 border rounded"/>
-      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+    <form onSubmit={handleSubmit} className="login-form">
+      <h2>Login</h2>
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="Wachtwoord"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <button type="submit">Login</button>
     </form>
   );
 }

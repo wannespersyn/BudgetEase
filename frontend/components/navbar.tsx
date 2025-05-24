@@ -7,10 +7,10 @@ const Navbar = ({ active }: { active: ActiveType }) => {
 
     const tabs = [
         { name: 'Home', path: '/' },
-        { name: 'Input', path: '/input' },
-        { name: 'Budget', path: '/budget' },
-        { name: 'Reports', path: '/reports' },
-        { name: 'Transaction', path: '/input' },
+        { name: 'Input', path: '/input.html' },
+        { name: 'Budget', path: '/budget.html' },
+        { name: 'Reports', path: '/reports.html' },
+        { name: 'Transaction', path: '/input.html' },
         { name: 'Dashboard', path: '/dashboard' },
         { name: "Login", path: "/login" },
     ];
