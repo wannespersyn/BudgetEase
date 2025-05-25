@@ -20,6 +20,7 @@ find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
         # Extract the relative path from the local folder
         relative_path=${file_path#$local_folder/}
+        echo "Uploading $relative_path..."
 
         # Construct the Blob Storage URL for the file
         blob_url="https://$storage_account.blob.core.windows.net/$container_name/$relative_path?$sas_token"
