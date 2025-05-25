@@ -14,7 +14,7 @@ az storage blob delete-batch \
   --source '$web' \
   --sas-token "$AZURE_STORAGE_SAS_TOKEN"
 
-echo "Uploading files to \$web container..."
+echo "Uploading files to $container_name container..."
 # Iterate over each file in the local folder and its subfolders
 find "$local_folder" -type f | while read -r file_path; do
     if [ -f "$file_path" ]; then
@@ -22,7 +22,7 @@ find "$local_folder" -type f | while read -r file_path; do
         relative_path=${file_path#$local_folder/}
 
         # Construct the Blob Storage URL for the file
-        blob_url="https://$storage_account.blob.core.windows.net/$root/$relative_path?$sas_token"
+        blob_url="https://$storage_account.blob.core.windows.net/$container_name/$relative_path?$sas_token"
         blob_url=$(echo "$blob_url" | tr -d ' ')
 
         # Set Content-Type based on file extension
