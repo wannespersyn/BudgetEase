@@ -5,14 +5,15 @@ import styles from '../styles/Navbar.module.css';
 type ActiveType = 'Transaction' | 'Dashboard' | 'Input' | 'Budget' | 'Reports' | 'Home';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
+    const containerName = "/$web"
     const tabs = [
-        { name: 'Home', path: '/index.html' },
-        { name: 'Input', path: '/input.html' },
-        { name: 'Budget', path: '/budget.html' },
-        { name: 'Reports', path: '/reports.html' },
-        { name: 'Transaction', path: '/input.html' },
-        { name: 'Dashboard', path: '/dashboard.html' },
-        { name: "Login", path: "/login.html" },
+        { name: 'Home', path: `${containerName}/index.html` },
+        { name: 'Input', path: `${containerName}/input.html` },
+        { name: 'Budget', path: `${containerName}/budget.html` },
+        { name: 'Reports', path: `${containerName}/reports.html` },
+        { name: 'Transaction', path: `${containerName}/input.html` },
+        { name: 'Dashboard', path: `${containerName}/dashboard.html` },
+        { name: "Login", path: `${containerName}/login.html` },
     ];
 
     return (
