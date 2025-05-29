@@ -5,23 +5,29 @@ import styles from '../styles/Navbar.module.css';
 type ActiveType = 'Transaction' | 'Dashboard' | 'Input' | 'Budget' | 'Reports' | 'Home';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
-    const containerName = "/$web"
+    const containerName = ""
     const tabs = [
-        { name: 'Home', path: `${containerName}/index.html` },
-        { name: 'Input', path: `${containerName}/input.html` },
-        { name: 'Budget', path: `${containerName}/budget.html` },
-        { name: 'Reports', path: `${containerName}/reports.html` },
-        { name: 'Transaction', path: `${containerName}/input.html` },
-        { name: 'Dashboard', path: `${containerName}/dashboard.html` },
-        { name: "Login", path: `${containerName}/login.html` },
+        { name: 'Home', path: `` },
+        { name: 'Budget', path: `/budget` },
+        { name: 'Transaction', path: `/input` },
+        { name: 'Dashboard', path: `/dashboard` },
     ];
 
     return (
         <nav className={styles.navbar}>
             {/* DESKTOP MENU */}
             <div className={styles.navbarWrapper}>
+                <h3 className={styles.logoText}>BUDGETEASE</h3>
                 <div className={styles.innerWrapper}>
                     <DesktopMenu tabs={tabs} active={active} />
+                </div>
+                <div className={styles.authLinksContainer}>
+                    <Link href={`/login`} className={`${styles.authLink} ${styles.signIn}`}>
+                        Sign In
+                    </Link>
+                    <Link href={`/register`} className={`${styles.authLink} ${styles.signUp}`}>
+                        Sign Up
+                    </Link>
                 </div>
             </div>
         </nav>

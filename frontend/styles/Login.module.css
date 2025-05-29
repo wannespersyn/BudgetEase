@@ -1,0 +1,147 @@
+/* styles/login.css */
+
+/* Colors:
+    - primary: #001845
+    - background: #979DAC
+
+    - text: #FFFFFF
+
+    - accent: #0466C8
+    - border: #023E7D
+*/
+
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #001845; /* primary */
+  padding: 1rem;
+}
+
+.loginForm {
+  width: 100%;
+  max-width: 420px;
+  background-color: #f9f9f9;
+  padding: 3rem 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  color: #001845;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.loginForm h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #001845;
+  font-weight: 600;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputContainer label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #001845;
+}
+
+.loginForm input {
+  padding: 0.75rem 1rem;
+  border: none;
+  border-bottom: 2px solid #023e7d;
+  color: #001845;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.loginForm input:focus {
+  border-color: #0466c8;
+  outline: none;
+}
+
+
+
+.forgotPassword {
+  margin-top: 0.25rem;
+  align-self: flex-end;
+  font-size: 0.85rem;
+  color: #0466c8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.forgotPassword:hover {
+  color: #023e7d;
+  text-decoration: underline;
+}
+
+.registerLink {
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.registerLink p {
+  margin: 0;
+  color: #001845;
+}
+
+.registerLink a {
+  color: #0466c8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.registerLink a:hover {
+  color: #023e7d;
+}
+
+.inputError {
+  border-bottom: 2px solid red !important;
+}
+
+.errorMessage {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: -0.4rem;
+}
+
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  flex: 1;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0466c8;
+  padding: 0;
+}
+
+.loginButton {
+  background-color: #0466c8; 
+  color: #ffffff;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
