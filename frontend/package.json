@@ -10,7 +10,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ag-media/react-pdf-table": "^2.0.3",
     "@heroicons/react": "^2.2.0",
+    "@react-pdf/renderer": "^4.3.0",
     "frontend": "file:",
     "next": "15.2.3",
     "react": "^19.0.0",

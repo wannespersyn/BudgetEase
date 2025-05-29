@@ -1,0 +1,53 @@
+.invoiceForm {
+    max-width: 700px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .input, .select, .textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+  }
+  
+  .inputSmall {
+    width: 100px;
+  }
+  
+  .itemRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .addButton, .removeButton {
+    padding: 0.5rem;
+    border: none;
+    background: #eee;
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .removeButton {
+    background: #f44336;
+    color: white;
+  }
+  
+  .total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: right;
+  }
+  
+  .button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+  
