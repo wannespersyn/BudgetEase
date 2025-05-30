@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_NAME: 'budgetease-api'  # <-- jouw Function App naam
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: './backend'
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: './backend/dist'
   NODE_VERSION: '20.x'
 
 jobs:
