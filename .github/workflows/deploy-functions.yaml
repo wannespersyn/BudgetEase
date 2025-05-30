@@ -42,6 +42,15 @@ jobs:
         cd backend/dist
         zip -r functionapp.zip .
 
+    - name: Show dist contents
+      run: ls -l ./backend/dist
+
+    - name: Check functionapp.zip file size and existence
+      run: |
+        ls -l ./backend/dist/functionapp.zip
+        file ./backend/dist/functionapp.zip
+    
+
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
