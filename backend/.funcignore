@@ -1,6 +1,13 @@
 *.js.map
 *.ts
+*.map
+*.d.ts
+node_modules/
+tests/
+README.md
+*.log
 .git*
+.vscode/
 .vscode
 __azurite_db*__.json
 __blobstorage__

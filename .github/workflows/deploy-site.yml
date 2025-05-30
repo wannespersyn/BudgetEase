@@ -4,16 +4,8 @@ on:
   push:
     branches:
       - main
-
-# CONFIGURATION
-# For help, go to https://github.com/Azure/Actions
-#
-# 1. Set up the following secrets in your repository:
-#   AZURE_FUNCTIONAPP_PUBLISH_PROFILE
-#
-# 2. Change these variables for your configuration:
 env:
-  NODE_VERSION: '20.x'                      # set this to the node version to use (e.g. '8.x', '10.x', '12.x')
+  NODE_VERSION: '20.x' 
 
 jobs:
   upload-site:
