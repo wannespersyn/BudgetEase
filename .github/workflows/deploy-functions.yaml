@@ -1,4 +1,4 @@
-name: Build and Deploy Azure Function (Linux)
+name: Build and Deploy Azure Function (v4, Linux)
 
 on:
   push:
@@ -16,10 +16,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ env.NODE_VERSION }}
 
@@ -33,22 +33,9 @@ jobs:
         cd backend
         npm run build
 
-    - name: Copy config files to dist
+    - name: Copy necessary files to dist
       run: |
-        cp backend/host.json backend/package.json backend/dist/
-
-    - name: Restructure dist folder for Azure Functions
-      run: |
-        FUNCTIONS_DIR=backend/dist/functions
-        DIST_DIR=backend/dist
-        SRC_FUNCTIONS_DIR=backend/src/functions
-
-        for function_file in $FUNCTIONS_DIR/*.js; do
-          func_name=$(basename "$function_file" .js)
-          mkdir -p "$DIST_DIR/$func_name"
-          mv "$function_file" "$DIST_DIR/$func_name/index.js"
-          cp "$SRC_FUNCTIONS_DIR/$func_name/function.json" "$DIST_DIR/$func_name/function.json"
-        done
+        cp backend/package.json backend/host.json backend/dist/
 
     - name: Zip Function App files
       run: |
