@@ -80,6 +80,7 @@ export default function TransactionForm() {
 
   return (
     <main className={styles.main}>
+      
       <form onSubmit={handleSubmit} className={styles.formContainer}>
         <h2 className={styles.heading}>Add Transaction – Step {step} of 3</h2>
 
