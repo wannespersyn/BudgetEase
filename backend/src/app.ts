@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // Allow local development
-      "https://portal.azure.com.",// Allow Azure
+      "https://portal.azure.com.",// Allow Azurec
     ],
   })
 );
