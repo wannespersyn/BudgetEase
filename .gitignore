@@ -134,3 +134,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+.azurite/
+__azurite_db_*.json
+__blobstorage__/
