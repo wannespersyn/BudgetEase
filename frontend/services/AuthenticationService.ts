@@ -13,7 +13,7 @@ const Login = (email: string, password: string) => {
     });
 }        
 
-const Register = (email: string, password: string) => {
+const Register = (username: string, email: string, password: string) => {
     const host = "https://budgeteaseapi.azurewebsites.net/api"
     return fetch(`${host}/RegisterUserHtppTrigger`, {
         method: 'POST',
@@ -21,8 +21,10 @@ const Register = (email: string, password: string) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+            username,
             email,
             password,
+            role: "USER", // Assuming role is always USER for registration
         }),
     });
 }

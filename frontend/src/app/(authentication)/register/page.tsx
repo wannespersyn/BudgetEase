@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "../../../../styles/Register.module.css"
+import AuthentiacationService from "../../../../services/AuthenticationService";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -24,6 +25,16 @@ export default function RegisterPage() {
     };
 
     setErrors(newErrors);
+
+    const response = await AuthentiacationService.Register(name, email, password);
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Registration failed:", errorData);
+      alert("Registratie mislukt. Probeer het opnieuw.");
+      return;
+    } else {
+      console.log("Registration successful");
+    }
 
     if (!Object.values(newErrors).includes(true)) {
       console.log("Registering with:", name, email, password);
