@@ -1,6 +1,7 @@
 
 const Login = (email: string, password: string) => {
-    return fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+    const host = "https://budgeteaseapi.azurewebsites.net/api"
+    return fetch(`${host}/LoginUserHttpTrigger`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,7 +14,8 @@ const Login = (email: string, password: string) => {
 }        
 
 const Register = (email: string, password: string) => {
-    return fetch(`${process.env.API_BASE_URL}/auth/register`, {
+    const host = "https://budgeteaseapi.azurewebsites.net/api"
+    return fetch(`${host}/RegisterUserHtppTrigger`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
