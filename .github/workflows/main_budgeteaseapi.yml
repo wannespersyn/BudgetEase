@@ -37,8 +37,14 @@ jobs:
           npm run test --if-present
           popd
 
+      # - name: Zip artifact for deployment
+      #   run: zip release.zip ./* -r
+
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: |
+          cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          zip -r ../release.zip .
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -59,11 +65,20 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
       
+      # - name: 'Run Azure Functions Action'
+      #   uses: Azure/functions-action@v1
+      #   id: fa
+      #   with:
+      #     app-name: 'budgeteaseapi'
+      #     slot-name: 'Production'
+      #     package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+      #     publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3CC1CBAFDEEB4578B64BC034B22FE600 }}
+      
       - name: 'Run Azure Functions Action'
         uses: Azure/functions-action@v1
         id: fa
         with:
           app-name: 'budgeteaseapi'
           slot-name: 'Production'
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          package: release.zip  # <-- dit is nu correct
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3CC1CBAFDEEB4578B64BC034B22FE600 }}
