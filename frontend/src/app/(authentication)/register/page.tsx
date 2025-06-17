@@ -31,13 +31,12 @@ export default function RegisterPage() {
       const errorData = await response.json();
       console.error("Registration failed:", errorData);
       alert("Registratie mislukt. Probeer het opnieuw.");
-      return;
+      
     } else {
       console.log("Registration successful");
-    }
-
-    if (!Object.values(newErrors).includes(true)) {
-      console.log("Registering with:", name, email, password);
+      setTimeout(() => {
+        alert("Registratie succesvol! Je kunt nu inloggen.");
+      }, 1000);
       router.push("/login");
     }
   };
