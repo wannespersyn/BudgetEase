@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../../../../styles/Budget.module.css';
+import BudgetService from '../../../../services/BudgetService';
 
 export default function BudgetForm() {
   const [formData, setFormData] = useState({
@@ -39,13 +40,23 @@ export default function BudgetForm() {
     setIsSubmitting(true);
 
     const budget = {
-      ...formData,
-      limit: parseFloat(formData.limit),
+      name: formData.category,
+      amount: parseFloat(formData.limit),
+      description: formData.notes,
+      startDate: formData.startDate,
+      endDate: formData.endDate,
     };
 
     try {
-      // TODO: Post to your API
-      console.log('Submitting budget:', budget);
+      
+      const response = await BudgetService.CreateBudget(budget);
+      if (!response.ok) {
+        throw new Error('Failed to create budget' + `: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Budget created successfully:', data);
+
       setSubmitted(true);
 
       setTimeout(() => {

@@ -34,10 +34,12 @@ export default function Login() {
       alert("Login mislukt. Probeer het opnieuw.");
     } else {
       console.log("Login successful");
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
       setTimeout(() => {
         alert("Login succesvol! Welkom terug.");
       }, 1000);
-      window.location.href = "/dashboard";
+      window.location.href = "/";
     }
   };
 

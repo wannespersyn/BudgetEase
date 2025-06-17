@@ -1,12 +1,12 @@
 export type Transaction = {
     id?: string;
-    userId: string;
+    userId?: string;
     name: string;
     amount: number;
     date: string;
-    category: string;
+    category?: string;
     description?: string;
-    type: "income" | "outcome";
+    type: "INCOME" | "OUTCOME";
     isRecurring?: boolean;
     recurrenceInterval?: "weekly" | "monthly" | "yearly";
     tags?: string[];

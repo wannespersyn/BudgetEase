@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../../../../components/navbar';
 import styles from '../../../../styles/TransactionInput.module.css';
+import TransactionService from '../../../../services/TransactionService';
 
 export default function TransactionForm() {
   const [step, setStep] = useState(1);
@@ -13,7 +13,7 @@ export default function TransactionForm() {
     date: '',
     category: '',
     description: '',
-    type: 'outcome',
+    type: 'OUTCOME',
     isRecurring: false,
     recurrenceInterval: 'monthly',
     tags: '',
@@ -50,13 +50,23 @@ export default function TransactionForm() {
       tags: formData.tags.split(',').map(tag => tag.trim()).filter(Boolean),
     };
     console.log('Submitting transaction:', transaction);
-    // TODO: Send to API
-    router.push('/dashboard');
+  
+    const response = await TransactionService.CreateTransaction(transaction);
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Transaction creation failed:', errorData);
+      alert('Transaction creation failed. Please try again.');
+      return;
+    } else {
+      console.log('Transaction created successfully');
+      alert('Transaction added successfully!');
+      router.push('/dashboard');
+    }
   };
 
   const Input = ({ label, ...props }: { label: string } & React.InputHTMLAttributes<HTMLInputElement>) => (
     <label className={styles.labelBlock}>
-      <span className={styles.labelText}>{label}</span>
+      {label}
       <input {...props} className={styles.input} />
     </label>
   );
@@ -106,8 +116,8 @@ export default function TransactionForm() {
             </label>
 
             <Select label="Transaction Type" name="type" value={formData.type} onChange={handleChange}>
-              <option value="income">Income</option>
-              <option value="outcome">Outcome</option>
+              <option value="INCOME">Income</option>
+              <option value="OUTCOME">Outcome</option>
             </Select>
 
             <label className={styles.checkboxLabel}>
