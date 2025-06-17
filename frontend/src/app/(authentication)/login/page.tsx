@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styles from "../../../../styles/Login.module.css";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
+import AuthentiacationService from "../../../../services/AuthenticationService";
 
 
 export default function Login() {
@@ -11,7 +12,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: false, password: false });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Simple validation
@@ -23,8 +24,20 @@ export default function Login() {
     setErrors(newErrors);
 
     if (!newErrors.email && !newErrors.password) {
-      // proceed with login
       console.log("Logging in:", { email, password });
+    }
+
+    const response = await AuthentiacationService.Login(email, password);
+    if (!response.ok) {
+      const errorData = response.json();
+      console.error("Login failed:", errorData);
+      alert("Login mislukt. Probeer het opnieuw.");
+    } else {
+      console.log("Login successful");
+      setTimeout(() => {
+        alert("Login succesvol! Welkom terug.");
+      }, 1000);
+      window.location.href = "/dashboard";
     }
   };
 
