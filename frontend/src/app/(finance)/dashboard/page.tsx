@@ -4,91 +4,146 @@ import styles from '../../../../styles/Dashboard.module.css';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Transaction } from '../../../../types/Transaction';
-import Navbar from '../../../../components/navbar';
 import TransactionService from '../../../../services/TransactionService';
 import BudgetService from '../../../../services/BudgetService';
-
-type type = "INCOME" | "OUTCOME";
+import GoalService from '../../../../services/GoalService';
 
 export default function DashboardPage() {
     const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [budgets, setBudgets] = useState([]);
-    const [Goals, setGoals] = useState([]);
-    
+    const [budgets, setBudgets] = useState<BudgetResponse[]>([]);
+    const [goals, setGoals] = useState<GoalReponse[]>([]);
+
     useEffect(() => {
-        fetchData();
+        (async () => {
+            try {
+                const [transactionRes, budgetRes, goalRes] = await Promise.all([
+                    TransactionService.GetTransactions(),
+                    BudgetService.GetBudgets(),
+                    GoalService.GetGoals()
+                ]);
+
+                if (!transactionRes.ok || !budgetRes.ok || !goalRes.ok) {
+                    throw new Error("Eén of meerdere fetch-aanvragen zijn mislukt");
+                }
+
+                const [transactionData, budgetData, goalData] = await Promise.all([
+                    transactionRes.json(),
+                    budgetRes.json(),
+                    goalRes.json()
+                ]);
+
+                console.log('Transacties:', transactionData);
+                console.log('Budgetten:', budgetData); 
+                console.log('Doelen:', goalData);
+
+                setTransactions(transactionData.transactions);
+                setBudgets(budgetData);
+                setGoals(goalData);
+
+                console.log(budgets, goals, transactions);
+            } catch (error) {
+                console.error('Fout bij het ophalen van gegevens:', error);
+            }
+        })();
     }, []);
 
-    const fetchData = async () => {
-        try {
-            const transactionResponse = await TransactionService.GetTransactions();
-            const budgetResponse = await BudgetService.GetBudgets();
+    const totalIncome = transactions
+        .filter(t => t.type === 'INCOME')
+        .reduce((sum, t) => sum + t.amount, 0);
 
-            if (!transactionResponse.ok) {
-                throw new Error('Failed to fetch transaction data');
-            } 
+    const totalOutcome = transactions
+        .filter(t => t.type === 'OUTCOME')
+        .reduce((sum, t) => sum + Math.abs(t.amount), 0);
 
-            if (!budgetResponse.ok) {
-                throw new Error('Failed to fetch budget data' + budgetResponse.statusText);
-            }
-
-            const transactionData = await transactionResponse.json();
-            const budgetData = await budgetResponse.json();
-
-            console.log('Transaction data:', transactionData);
-
-            setTransactions(transactionData.transactions);
-            setBudgets(budgetData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
-    const totalIncome = transactions.filter(t => t.type === 'INCOME').reduce((acc, t) => acc + t.amount, 0);
-    const totalOutcome = transactions.filter(t => t.type === 'OUTCOME').reduce((acc, t) => acc + Math.abs(t.amount), 0);
     const balance = totalIncome - totalOutcome;
 
     return (
         <main className={styles.main}>
-            <Navbar active='Dashboard' />
 
             <header className={styles.header}>
                 <h1>Welkom terug 👋</h1>
-                <p>Hier is een overzicht van je recente transacties en balans.</p>
+                <p>Bekijk hieronder je financiële overzicht.</p>
             </header>
 
             <section className={styles.cards}>
-                <div className={styles.card}>
-                <h3>Inkomen</h3>
-                <p className={styles.income}>€ {totalIncome.toFixed(2)}</p>
-                </div>
-                <div className={styles.card}>
-                <h3>Uitgaven</h3>
-                <p className={styles.outcome}>€ {totalOutcome.toFixed(2)}</p>
-                </div>
-                <div className={styles.card}>
-                <h3>Saldo</h3>
-                <p className={balance >= 0 ? styles.income : styles.outcome}>€ {balance.toFixed(2)}</p>
-                </div>
+                <Card title="Inkomen" amount={totalIncome} type="INCOME" />
+                <Card title="Uitgaven" amount={totalOutcome} type="OUTCOME" />
+                <Card title="Saldo" amount={balance} type={balance >= 0 ? "INCOME" : "OUTCOME"} />
             </section>
 
             <section className={styles.transactionSection}>
                 <div className={styles.transactionHeader}>
-                <h2>Recente transacties</h2>
-                <Link href="/input" className={styles.addButton}>+ Nieuwe transactie</Link>
+                    <h2>Recente transacties</h2>
+                    <Link href="/input" className={styles.addButton}>+ Nieuwe transactie</Link>
                 </div>
                 <ul className={styles.transactionList}>
-                {transactions.map(t => (
-                    <li key={t.id} className={styles.transactionItem}>
-                    <span className={styles.transactionName}>{t.description}</span>
-                    <span className={t.type === 'INCOME' ? styles.income : styles.outcome}>
-                        € {Math.abs(t.amount).toFixed(2)}
-                    </span>
-                    <span className={styles.transactionDate}>{t.date}</span>
-                    </li>
-                ))}
+                    {transactions.map(t => (
+                        <li key={t.id} className={styles.transactionItem}>
+                            <span className={styles.transactionName}>{t.description}</span>
+                            <span className={t.type === 'INCOME' ? styles.income : styles.outcome}>
+                                € {Math.abs(t.amount).toFixed(2)}
+                            </span>
+                            <span className={styles.transactionDate}>{t.date}</span>
+                        </li>
+                    ))}
                 </ul>
             </section>
+
+            {budgets.length > 0 && (
+                <section className={styles.budgetSection}>
+                    <h2>Budgetten</h2>
+                    <ul className={styles.budgetList}>
+                        {budgets.map(budget => {
+                            const spent = transactions
+                                .filter(t => t.category === budget.name && t.type === 'OUTCOME')
+                                .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+
+                            const percentage = Math.min((spent / budget.amount) * 100, 100);
+
+                            return (
+                                <li key={budget.id} className={styles.budgetItem}>
+                                    <strong>{budget.name}</strong>
+                                    <div className={styles.budgetProgress}>
+                                        <div className={styles.budgetFill} style={{ width: `${percentage}%` }}></div>
+                                    </div>
+                                    <p>€ {spent.toFixed(2)} van € {budget.amount.toFixed(2)}</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </section>
+            )}
+
+            {goals.length > 0 && (
+                <section className={styles.goalSection}>
+                    <h2>Spaardoelen</h2>
+                    <ul className={styles.goalList}>
+                        {goals.map(goal => {
+                            const percentage = Math.min((goal.currentAmount / goal.targetAmount) * 100, 100);
+                            return (
+                                <li key={goal.id} className={styles.goalItem}>
+                                    <strong>{goal.name}</strong>
+                                    <div className={styles.goalProgress}>
+                                        <div className={styles.goalFill} style={{ width: `${percentage}%` }}></div>
+                                    </div>
+                                    <p>€ {goal.currentAmount.toFixed(2)} van € {goal.targetAmount.toFixed(2)}</p>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </section>
+            )}
         </main>
+    );
+}
+
+function Card({ title, amount, type }: Readonly<{ title: string, amount: number, type: "INCOME" | "OUTCOME" }>) {
+    return (
+        <div className={styles.card}>
+            <h3>{title}</h3>
+            <p className={type === "INCOME" ? styles.income : styles.outcome}>
+                € {amount.toFixed(2)}
+            </p>
+        </div>
     );
 }

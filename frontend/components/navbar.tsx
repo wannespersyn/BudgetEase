@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 
-type ActiveType = 'Transaction' | 'Dashboard' | 'Budget' | 'Home' | 'Invoice';
+type ActiveType = 'Transaction' | 'Dashboard' | 'Goal' | 'Budget' | 'Home' | 'Invoice';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
     const containerName = ""
@@ -10,6 +10,7 @@ const Navbar = ({ active }: { active: ActiveType }) => {
         { name: 'Home', path: `` },
         { name: 'Budget', path: `/budget` },
         { name: 'Transaction', path: `/input` },
+        { name: 'Goal', path: `/goal` },
         { name: 'Invoice', path: `/invoice` },
         { name: 'Dashboard', path: `/dashboard` },
     ];
