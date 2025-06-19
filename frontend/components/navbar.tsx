@@ -25,7 +25,8 @@ const Navbar = ({ active }: { active: ActiveType }) => {
             isAuth(true);
             setTabs(preTabs);
         } else {
-            isAuth(false);
+            setTabs(preTabs);
+            isAuth(true);
         }
 
     }, []);
