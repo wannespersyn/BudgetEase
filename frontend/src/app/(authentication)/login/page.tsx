@@ -43,7 +43,7 @@ export default function Login() {
       setTimeout(() => {
         alert("Login succesvol! Welkom terug.");
       }, 1000);
-      router.push("/dashboard");
+      router.push("/dashboard.html");
     }
   };
 
