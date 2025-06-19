@@ -10,7 +10,7 @@ const Navbar = ({ active }: { active: ActiveType }) => {
     const [auth, isAuth] = useState(false);
     const [tabs, setTabs] = useState<{ name: string, path: string }[]>([]);
     const preTabs = [
-        { name: 'Home', path: `` },
+        { name: 'Home', path: `/index` },
         { name: 'Budget', path: `/budget` },
         { name: 'Transaction', path: `/input` },
         { name: 'Goal', path: `/goal` },
