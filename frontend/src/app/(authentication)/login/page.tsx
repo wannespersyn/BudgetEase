@@ -40,7 +40,7 @@ export default function Login() {
       setTimeout(() => {
         alert("Login succesvol! Welkom terug.");
       }, 1000);
-      window.location.href = "/";
+      window.location.href = "/index.html";
     }
   };
 
