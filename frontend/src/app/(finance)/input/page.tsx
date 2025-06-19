@@ -29,10 +29,10 @@ export default function TransactionForm() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value, type } = e.target;
-    let newValue: string | boolean = value;
-    if (type === 'checkbox' && e.target instanceof HTMLInputElement) {
-      newValue = e.target.checked;
-    }
+    const newValue = type === 'checkbox' && e.target instanceof HTMLInputElement
+      ? e.target.checked
+      : value;
+
     setFormData(prev => ({
       ...prev,
       [name]: newValue,
@@ -96,10 +96,25 @@ export default function TransactionForm() {
 
         {step === 1 && (
           <>
-            <Input label="Transaction Name" name="name" type="text" value={formData.name} onChange={handleChange} />
-            <Input label="Amount" name="amount" type="number" step="0.01" value={formData.amount} onChange={handleChange} />
-            <Input label="Date" name="date" type="date" value={formData.date} onChange={handleChange} />
-            <Input label="Category" name="category" type="text" value={formData.category} onChange={handleChange} />
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Transaction Name</span>
+              <input type="text" name='name' value={formData.name} onChange={handleChange} className={styles.input} />
+            </label>
+
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Amount</span>
+              <input type="number" name='amount' value={formData.amount} onChange={handleChange} className={styles.input} />
+            </label>
+
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Date</span>
+              <input type="date" name='date' value={formData.date} onChange={handleChange} className={styles.input} />
+            </label>
+
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Category</span>
+              <input type="text" name='category' value={formData.category} onChange={handleChange} className={styles.input} />
+            </label>
           </>
         )}
 
@@ -115,10 +130,14 @@ export default function TransactionForm() {
               />
             </label>
 
-            <Select label="Transaction Type" name="type" value={formData.type} onChange={handleChange}>
-              <option value="INCOME">Income</option>
-              <option value="OUTCOME">Outcome</option>
-            </Select>
+          
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Transaction Type</span>
+              <select className={styles.select} name='type' value={formData.type} onChange={handleChange}>
+                <option value="INCOME">Income</option>
+                <option value="OUTCOME">Outcome</option>
+              </select>
+            </label>
 
             <label className={styles.checkboxLabel}>
               <input
@@ -142,7 +161,11 @@ export default function TransactionForm() {
 
         {step === 3 && (
           <>
-            <Input label="Tags (comma-separated)" name="tags" type="text" value={formData.tags} onChange={handleChange} />
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Tags (comma-separated)</span>
+              <input type="text" name='tags' value={formData.tags} onChange={handleChange} className={styles.input} />
+            </label>
+
             <Select label="Payment Method" name="paymentMethod" value={formData.paymentMethod} onChange={handleChange}>
               <option value="cash">Cash</option>
               <option value="card">Card</option>
@@ -150,8 +173,14 @@ export default function TransactionForm() {
               <option value="crypto">Crypto</option>
               <option value="other">Other</option>
             </Select>
-            <Input label="Currency (e.g. EUR)" name="currency" type="text" value={formData.currency} onChange={handleChange} />
-            <Input label="Attachment URL (optional)" name="attachmentUrl" type="text" value={formData.attachmentUrl} onChange={handleChange} />
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Currency (e.g. EUR)</span>
+              <input type="text" name='currency' value={formData.currency} onChange={handleChange} className={styles.input} />
+            </label>
+            <label className={styles.labelBlock}>
+              <span className={styles.labelText}>Attachment URL (optional)</span>
+              <input type="text" name='attachmentUrl' value={formData.attachmentUrl} onChange={handleChange} className={styles.input} />
+            </label>
             <Select label="Status" name="status" value={formData.status} onChange={handleChange}>
               <option value="pending">Pending</option>
               <option value="completed">Completed</option>
