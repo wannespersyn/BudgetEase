@@ -36,11 +36,9 @@ const Navbar = ({ active }: { active: ActiveType }) => {
             {/* DESKTOP MENU */}
             <div className={styles.navbarWrapper}>
                 <h3 className={styles.logoText}>BUDGETEASE</h3>
-                { auth && (
-                    <div className={styles.innerWrapper}>
-                        <DesktopMenu tabs={tabs} active={active} />
-                    </div>
-                )}
+                <div className={styles.innerWrapper}>
+                    <DesktopMenu tabs={tabs} active={active} />
+                </div>
                 <div className={styles.authLinksContainer}>
                     <Link href={`/login`} className={`${styles.authLink} ${styles.signIn}`}>
                         Sign In
