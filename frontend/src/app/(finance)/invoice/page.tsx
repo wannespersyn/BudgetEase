@@ -111,7 +111,7 @@ export default function InvoiceForm() {
     };
 
     console.log('Submitting invoice:', invoice);
-    router.push('/invoices');
+    router.push('/#');
   };
 
   const nextStep = () => setStep(prev => prev + 1);

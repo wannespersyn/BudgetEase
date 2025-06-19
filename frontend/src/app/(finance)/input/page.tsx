@@ -60,7 +60,7 @@ export default function TransactionForm() {
     } else {
       console.log('Transaction created successfully');
       alert('Transaction added successfully!');
-      router.push('/dashboard');
+      router.push('/dashboard.html');
     }
   };
 

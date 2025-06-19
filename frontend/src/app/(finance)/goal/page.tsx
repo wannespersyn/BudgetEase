@@ -50,7 +50,7 @@ export default function GoalInputPage() {
       if (!response.ok) throw new Error('Fout bij toevoegen van doel.' + response.status + response.statusText);
 
       setSuccess(true);
-      setTimeout(() => router.push('/dashboard'), 1500);
+      setTimeout(() => router.push('/dashboard.html'), 1500);
     } catch (err) {
       setError('Er is iets misgegaan bij het opslaan van het doel.');
       console.error('Fout bij het toevoegen van doel:', err);

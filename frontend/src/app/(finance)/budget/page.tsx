@@ -60,7 +60,7 @@ export default function BudgetForm() {
       setSubmitted(true);
 
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/dashboard.html');
       }, 1500);
     } catch (error) {
       console.error('Budget submission failed:', error);
