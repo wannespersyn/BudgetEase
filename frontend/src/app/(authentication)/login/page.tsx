@@ -5,6 +5,7 @@ import styles from "../../../../styles/Login.module.css";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import AuthentiacationService from "../../../../services/AuthenticationService";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 
 export default function Login() {
@@ -12,6 +13,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({ email: false, password: false });
+  const router = useRouter();
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +43,7 @@ export default function Login() {
       setTimeout(() => {
         alert("Login succesvol! Welkom terug.");
       }, 1000);
-      window.location.href = "/index.html";
+      router.push("/dashboard");
     }
   };
 
