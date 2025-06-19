@@ -10,12 +10,12 @@ const Navbar = ({ active }: { active: ActiveType }) => {
     const [auth, isAuth] = useState(false);
     const [tabs, setTabs] = useState<{ name: string, path: string }[]>([]);
     const preTabs = [
-        { name: 'Home', path: `/index` },
-        { name: 'Budget', path: `/budget` },
-        { name: 'Transaction', path: `/input` },
-        { name: 'Goal', path: `/goal` },
-        { name: 'Invoice', path: `/invoice` },
-        { name: 'Dashboard', path: `/dashboard` },
+        { name: 'Home', path: `/index.html` },
+        { name: 'Budget', path: `/budget.html` },
+        { name: 'Transaction', path: `/input.html` },
+        { name: 'Goal', path: `/goal.html` },
+        { name: 'Invoice', path: `/invoice.html` },
+        { name: 'Dashboard', path: `/dashboard.html` },
     ];
 
     useEffect(() => {
