@@ -1,12 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 
 type ActiveType = 'Transaction' | 'Dashboard' | 'Goal' | 'Budget' | 'Home' | 'Invoice';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
-    const containerName = ""
-    const tabs = [
+    const [auth, isAuth] = useState(false);
+    const [tabs, setTabs] = useState<{ name: string, path: string }[]>([]);
+    const preTabs = [
         { name: 'Home', path: `` },
         { name: 'Budget', path: `/budget` },
         { name: 'Transaction', path: `/input` },
@@ -14,6 +17,19 @@ const Navbar = ({ active }: { active: ActiveType }) => {
         { name: 'Invoice', path: `/invoice` },
         { name: 'Dashboard', path: `/dashboard` },
     ];
+
+    useEffect(() => {
+        const email = localStorage.getItem('email');
+        const password = localStorage.getItem('password');
+        if (email && password) {
+            isAuth(true);
+            setTabs(preTabs);
+        } else {
+            setTabs(preTabs);
+            isAuth(true);
+        }
+
+    }, []);
 
     return (
         <nav className={styles.navbar}>
