@@ -1,12 +1,15 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import styles from '../styles/Navbar.module.css';
 
 type ActiveType = 'Transaction' | 'Dashboard' | 'Goal' | 'Budget' | 'Home' | 'Invoice';
 
 const Navbar = ({ active }: { active: ActiveType }) => {
-    const containerName = ""
-    const tabs = [
+    const [auth, isAuth] = useState(false);
+    const [tabs, setTabs] = useState<{ name: string, path: string }[]>([]);
+    const preTabs = [
         { name: 'Home', path: `` },
         { name: 'Budget', path: `/budget` },
         { name: 'Transaction', path: `/input` },
@@ -15,14 +18,28 @@ const Navbar = ({ active }: { active: ActiveType }) => {
         { name: 'Dashboard', path: `/dashboard` },
     ];
 
+    useEffect(() => {
+        const email = localStorage.getItem('email');
+        const password = localStorage.getItem('password');
+        if (email && password) {
+            isAuth(true);
+            setTabs(preTabs);
+        } else {
+            isAuth(false);
+        }
+
+    }, []);
+
     return (
         <nav className={styles.navbar}>
             {/* DESKTOP MENU */}
             <div className={styles.navbarWrapper}>
                 <h3 className={styles.logoText}>BUDGETEASE</h3>
-                <div className={styles.innerWrapper}>
-                    <DesktopMenu tabs={tabs} active={active} />
-                </div>
+                { auth && (
+                    <div className={styles.innerWrapper}>
+                        <DesktopMenu tabs={tabs} active={active} />
+                    </div>
+                )}
                 <div className={styles.authLinksContainer}>
                     <Link href={`/login`} className={`${styles.authLink} ${styles.signIn}`}>
                         Sign In

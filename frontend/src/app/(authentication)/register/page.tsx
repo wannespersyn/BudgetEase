@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import styles from "../../../../styles/Register.module.css"
 import AuthentiacationService from "../../../../services/AuthenticationService";
+import Link from "next/link";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -99,11 +100,11 @@ export default function RegisterPage() {
         <button type="submit" className={styles.RegisterButton}>Register</button>
         
         <p className={styles.loginPrompt}>
-          Heb je al een account? <a href="/login">Log in hier</a>.
+          Heb je al een account? <Link href="/login">Log in hier</Link>.
         </p>
 
         <p className={styles.privacyPolicy}>
-          Door je te registreren ga je akkoord met onze <a href="/#">privacy policy</a>.
+          Door je te registreren ga je akkoord met onze <Link href="/#">privacy policy</Link>.
         </p>
       </form>
     </main>

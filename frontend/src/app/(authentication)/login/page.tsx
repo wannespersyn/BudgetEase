@@ -4,6 +4,7 @@ import { useState } from "react";
 import styles from "../../../../styles/Login.module.css";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import AuthentiacationService from "../../../../services/AuthenticationService";
+import Link from "next/link";
 
 
 export default function Login() {
@@ -87,16 +88,16 @@ export default function Login() {
               Password must be at least 6 characters.
             </p>
           )}
-          <a className={styles.forgotPassword} href="/register">
+          <Link className={styles.forgotPassword} href="/register">
             Forgot Password?
-          </a>
+          </Link>
         </div>
 
         <button type="submit" className={styles.loginButton}>Login</button>
 
         <div className={styles.registerLink}>
           <p>Don't have an account?</p>
-          <a href="/register">Register</a>
+          <Link href="/register">Register</Link>
         </div>
       </form>
     </main>
