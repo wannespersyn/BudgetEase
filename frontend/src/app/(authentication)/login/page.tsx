@@ -88,16 +88,16 @@ export default function Login() {
               Password must be at least 6 characters.
             </p>
           )}
-          {/* <Link className={styles.forgotPassword} href="/register">
+          <Link className={styles.forgotPassword} href="/register">
             Forgot Password?
-          </Link> */}
+          </Link>
         </div>
 
         <button type="submit" className={styles.loginButton}>Login</button>
 
         <div className={styles.registerLink}>
           <p>Don't have an account?</p>
-          <a href="/register">Register</a>
+          <Link href="/register">Register</Link>
           
         </div>
       </form>
